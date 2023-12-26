@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/dash.css" />
+    <title>Base User Dashboard</title>
+    <script>
+      var username = "{{ username }}";
+      var lastname = "{{ lastname }}";
+    </script>
+    <style>
+      button {
+        padding: 10px 20px;
+        background-color: #4caf50; /* Зеленый цвет */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Базовое меню пользователя -->
+    <table class="menu">
+      <tr>
+        <td>
+          <img
+            src="https://placekitten.com/30/30"
+            alt="User Icon"
+            class="menu_2"
+          />
+        </td>
+        <td class="menu-item" style="color: azure">
+          <a href="{{ url_for('dashboard') }}">Выбери доброе дело</a>
+        </td>
+      </tr>
+    </table>
+
+    <div class="user-details">
+      <h2>Информация о пользователе</h2>
+      <img
+        src="https://placekitten.com/200/200"
+        alt="User Photo"
+        class="user-photo"
+      />
+      <p id="name">Имя: {{ name }}</p>
+      <p id="lastname">Фамилия: {{ lastname }}</p>
+      <p id="group">Учебная группа: {{ group }}</p>
+      <p id="mail">Почта: {{ mail }}</p>
+
+      <p style="color: chocolate">
+        <a href="{{ url_for('logout') }}">Выйти</a>
+      </p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/dash.css" />
+    <title>Регистрация пользователя</title>
+    <style>
+      /* Стиль формы */
+      form {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+      }
+
+      button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      #registration-message {
+        margin-top: 16px;
+        color: green;
+        font-weight: bold;
+      }
+
+      #login-link {
+        display: none;
+        margin-top: 16px;
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#registration-form").submit(function (event) {
+          event.preventDefault();
+
+          var formData = new FormData($(this)[0]);
+
+          $.ajax({
+            url: "/registration",
+            type: "POST",
+            data: formData,
+            async: false,
+            success: function (data) {
+              $("#registration-message").text(
+                "Вы успешно зарегистрировались. Логин: ваша почта до знака @. Пароль для входа: baumanka"
+              );
+              $("#login-link").show();
+            },
+            cache: false,
+            contentType: false,
+            processData: false,
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <form
+      id="registration-form"
+      action="{{ url_for('registration') }}"
+      method="post"
+    >
+      <h2>Регистрация пользователя</h2>
+      <label for="name">Имя:</label>
+      <input type="text" id="name" name="name" value="Николай" />
+
+      <label for="lastname">Фамилия:</label>
+      <input type="text" id="lastname" name="lastname" value="Бауман" />
+
+      <label for="group">Учебная группа:</label>
+      <input type="text" id="group" name="group" value="" />
+
+      <label for="mail">Почта:</label>
+      <input type="email" id="mail" name="mail" value="" />
+
+      <button type="submit">Зарегистрироваться</button>
+    </form>
+
+    <div id="registration-message"></div>
+    <a id="login-link" href="/login">Вход</a>
+  </body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      var username = "{{ username }}";
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/dash.css" />
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td>
+          <!-- Меню -->
+          <table class="menu">
+            <tr>
+              <td>
+                <img
+                  src="https://yt3.googleusercontent.com/q_YhInm3UYdRtGb62v7w1AKcUWAAQYa8y5_XydzcCzXMnzhcvt754t-9ZqSpcVFoH9WR4EZi=s176-c-k-c0x00ffffff-no-rj"
+                  alt="Картинка меню"
+                  class="menu_2"
+                />
+              </td>
+              <td class="menu-item" style="color: azure">
+                <a href="{{ url_for('dashboard') }}"> Выбери доброе дело </a>
+              </td>
+              <td class="user-info">
+                <a href="{{ url_for('lk') }}">
+                  <img
+                    src="https://placekitten.com/30/30"
+                    alt="Иконка пользователя"
+                    class="user-icon"
+                  />
+                  <span id="username">{{ username }}</span>
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <!-- Посты -->
+          <table class="post-table" style="margin-top: 10px">
+            <tr>
+              <td>
+                <div class="post-container">
+                  <div class="post">
+                    <h2>День рождения Пушкина</h2>
+                    <img
+                      src="https://pic.rutubelist.ru/video/d8/56/d8569025c4eed3dacd6b822e6858b483.jpg"
+                      alt="Картинка поста 1"
+                    />
+                    <p id="about">
+                      Встречайте великого Пушкина вместе с нами – вечер стихов,
+                      вдохновения и литературного волшебства!
+                    </p>
+                    <p id="date">06.06.2023</p>
+                    <p id="time">10:00-15:00</p>
+                    <p id="hours">2 часа</p>
+                    <form method="POST" action="{{ url_for('apply') }}">
+                      <input
+                        type="hidden"
+                        name="mero_text"
+                        value="День рождения Пушкина"
+                      />
+                      <button class="response-btn" type="submit">
+                        Откликнуться
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="post-container">
+                  <div class="post">
+                    <h2>День рождения Лермонтова</h2>
+                    <img
+                      src="https://www.belcanto.ru/media/images/persons/17091508.jpeg"
+                      alt="Картинка поста 2"
+                    />
+                    <p id="about">
+                      Погрузитесь в мир Лермонтова на нашем мероприятии – вечер
+                      страсти, гор и лирики, посвященный великому поэту!
+                    </p>
+                    <p id="date">15.10.2023</p>
+                    <p id="time">10:00-15:00</p>
+                    <p id="hours">3 часа</p>
+                    <form method="POST" action="{{ url_for('apply') }}">
+                      <button class="response-btn" type="submit">
+                        Откликнуться
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="post-container">
+                  <div class="post">
+                    <h2>День рождения Гордина</h2>
+                    <img
+                      src="https://edu-env.ru/wp-content/uploads/2021/10/Гордин.jpg"
+                      alt="Картинка поста 3"
+                    />
+                    <p id="about">
+                      Помоги с организацией дня рождения нашего ректора!
+                    </p>
+                    <p id="date">16.08.2023</p>
+                    <p id="time">10:00-15:00</p>
+                    <p id="hours">2 часа</p>
+                    <form method="POST" action="{{ url_for('apply') }}">
+                      <button class="response-btn" type="submit">
+                        Откликнуться
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="post-container">
+                  <div class="post">
+                    <h2>День рождения факультета ИУ</h2>
+                    <img
+                      src="https://sun1-20.userapi.com/impf/c636418/v636418397/35bc2/sqp61YR7RiU.jpg?size=1280x853&quality=96&sign=da8adb7138fc0c00a1bfbc9fb0bbb712&c_uniq_tag=ENUPLOYu8YO0eITTtzqgs3q7vI0THJuCQHGLS6nx2BQ&type=album"
+                      alt="Картинка поста 4"
+                    />
+                    <p id="about">
+                      Помоги с организацией дня рождения нашего факультета!
+                    </p>
+                    <p id="date">16.08.2023</p>
+                    <p id="time">11:00-15:00</p>
+                    <p id="hours">2 часа</p>
+                    <!-- Пример формы в apply.html -->
+                    <form method="POST" action="{{ url_for('apply') }}">
+                      <button class="response-btn" type="submit">
+                        Откликнуться
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <div id="welcome-popup" class="popup">
+      <span class="close" onclick="closePopup()">&times;</span>
+      <h1>
+        Добро пожаловать в систему,
+        <span id="username">{{ username }}</span>!
+      </h1>
+      <p>Поменять пользователя можно через личный кабинет.</p>
+      <p style="color: chocolate">
+        <a href="{{ url_for('logout') }}">Выйти</a>
+      </p>
+    </div>
+
+    <script src="static/dash.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/apply.css" />
+    <title>Apply</title>
+  </head>
+  <body>
+    <div class="apply-popup">
+      <h2>Ваша заявка успешно отправлена</h2>
+      <p>Имя: {{ name }}</p>
+      <p>Фамилия: {{ lastname }}</p>
+      <p>Группа: {{ group }}</p>
+      <p>Почта: {{ mail }}</p>
+      <p style="color: chocolate">
+        <a href="{{ url_for('dashboard') }}">Обратно</a>
+      </p>
+    </div>
+  </body>
+</html>

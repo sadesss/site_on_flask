@@ -1,0 +1,122 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu {
+    width: 100%;
+    background-color: hsl(222, 64%, 80%);
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.menu img {
+    max-width: 30px;
+    max-height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.menu_2 {
+    max-width: 30px;
+    max-height: 30px;
+    border-radius: 50%;
+    margin-right: 100px;
+}
+
+.menu-item {
+    cursor: pointer;
+    margin-left: 500px;
+    margin-right: 500px;
+    
+}
+
+
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-left: 400px;
+}
+
+.post-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px; /* Отступ между меню и постами */
+}
+
+.post {
+    width: 300px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Центрируем текст внутри контейнера */
+    margin-bottom: 20px; /* Отступ после каждого поста */
+}
+
+.post img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.response-btn {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%; /* Растягиваем кнопку по ширине контейнера */
+}
+
+/* Добавьте этот стиль для всплывающего окна */
+.popup {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 250px;
+    background-color: #ffed8a;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    padding: 10px;
+}
+
+.popup h1 {
+    color: #333;
+    font-size: 16px;
+    margin: 0;
+}
+
+.popup p {
+    color: #555;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.popup a {
+    color: hsl(192, 77%, 69%);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.popup a:hover {
+    text-decoration: underline;
+}
+
+.popup .close {
+    font-size: 20px;
+    cursor: pointer;
+}

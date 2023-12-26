@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/dash.css" />
+    <!-- Замените на ваш путь к CSS-файлу -->
+    <title>Admin Dashboard</title>
+  </head>
+  <body>
+    <!-- Меню администратора, аналогичное dashboard -->
+    <table class="menu">
+      <tr>
+        <td>
+          <img
+            src="https://avatars.mds.yandex.net/get-mpic/6256254/img_id1256544874132099638.jpeg/optimize"
+            alt="Admin Image"
+            class="menu_2"
+          />
+        </td>
+        <td class="menu-item" style="color: azure">
+          <a href="{{ url_for('dashboard') }}"> Выбери доброе дело </a>
+        </td>
+        <td class="user-info">
+          <img
+            src="https://placekitten.com/30/30"
+            alt="Admin Icon"
+            class="user-icon"
+          />
+          <span id="admin-username">Admin</span>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Личный кабинет админа -->
+    <div class="admin-profile">
+      <h1>Личный кабинет администратора</h1>
+      <table class="responses-table">
+        <tr>
+          <th>Мероприятие</th>
+          <th>Имя</th>
+          <th>Фамилия</th>
+          <th>Группа</th>
+        </tr>
+        <tr>
+          <td>Мероприятие 1</td>
+          <td>Имя 1</td>
+          <td>Фамилия 1</td>
+          <td>Группа 1</td>
+        </tr>
+      </table>
+    </div>
+    <!--Форма для ссоздания мероприятия-->
+    <div class="create-event">
+      <h1>Создать мероприятие</h1>
+      <form action="{{ url_for('create_event') }}" method="POST">
+        <input type="text" name="event_name" placeholder="Название мероприятия" />
+        <input type="text" name="event_date" placeholder="Дата мероприятия" />
+        <input type="text" name="event_description" placeholder="Описание мероприятия" />
+        <input type="submit" value="Создать" />
+      </form>
+    </div>
+
+    <button style="border-radius: 20px; background-color: rgb(221, 127, 255)">
+      <p><a href="{{ url_for('logout') }}">Logout</a></p>
+    </button>
+    <!--<script src="path/to/your/adminlk.js" defer></script>-->
+  </body>
+</html>
