@@ -147,6 +147,29 @@
           </table>
         </td>
       </tr>
+      <div>
+        <h2>Мероприятия</h2>
+        {% for mero in meros %}
+        <div>
+          <p>{{ mero.mero }}</p>
+          <p>{{ mero.name }} {{ mero.lastname }}</p>
+          <p>{{ mero.group }}</p>
+          <p>{{ mero.mail }}</p>
+          <hr />
+        </div>
+        {% endfor %}
+      </div>
+      <div>
+        <h2>Созданные мероприятия</h2>
+        {% for event in events %}
+        <div>
+          <p>{{ event.name }}</p>
+          <p>{{ event.date }}</p>
+          <p>{{ event.description }}</p>
+          <hr />
+        </div>
+        {% endfor %}
+      </div>
     </table>
 
     <div id="welcome-popup" class="popup">

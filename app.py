@@ -40,11 +40,21 @@ class UserData(db.Model):
 
 class Mero(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    mero = db.Column(db.String(255))
-    name = db.Column(db.String(255))
-    lastname = db.Column(db.String(255))
-    group = db.Column(db.String(20))
-    mail = db.Column(db.String(255))
+    mero = db.Column(db.String(255), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+    lastname = db.Column(db.String(100), nullable=False)
+    group = db.Column(db.String(20), nullable=False)
+    mail = db.Column(db.String(100), nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey("event.id"))
+    event = db.relationship("Event", back_populates="meros")
+
+
+class Event(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    date = db.Column(db.String(20), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    meros = db.relationship("Mero", back_populates="event")
 
 
 # Примените миграции после добавления новой модели
@@ -113,6 +123,43 @@ def registration():
 
     except Exception as e:
         return jsonify({"error": str(e)})
+
+
+@app.route("/create_event", methods=["POST"])
+@login_required
+def create_event():
+    if request.method == "POST":
+        event_name = request.form.get("event_name")
+        event_date = request.form.get("event_date")
+        event_description = request.form.get("event_description")
+
+        # Создаем новое мероприятие в базе данных
+        new_event = Event(
+            name=event_name, date=event_date, description=event_description
+        )
+        db.session.add(new_event)
+        db.session.commit()
+
+        flash("Мероприятие успешно создано", "success")
+
+        # Получаем созданное мероприятие с базы данных
+        created_event = Event.query.filter_by(name=event_name).first()
+
+        # Создаем пост для этого мероприятия
+        new_mero = Mero(
+            mero=event_name,
+            name=current_user.name,
+            lastname=current_user.lastname,
+            group=current_user.group,
+            mail=current_user.mail,
+            event_id=created_event.id,
+        )
+        db.session.add(new_mero)
+        db.session.commit()
+
+        flash("Мероприятие успешно опубликовано", "success")
+
+    return redirect(url_for("dashboard"))
 
 
 @app.route("/lk")
@@ -196,6 +243,9 @@ def login():
 @app.route("/dashboard")
 @login_required
 def dashboard():
+    meros = Mero.query.all()
+    events = Event.query.all()
+
     if current_user.is_authenticated:
         username = current_user.username
         return render_template("dashboard.html", username=username)
@@ -205,11 +255,6 @@ def dashboard():
         group = user_data.group
         mail = user_data.mail
 
-        print("Имя пользователя:", name)
-        print("Фамилия пользователя:", lastname)
-        print("Группа пользователя:", group)
-        print("Почта пользователя:", mail)
-
         return render_template(
             "dashboard.html",
             name=name,
@@ -217,7 +262,9 @@ def dashboard():
             group=group,
             mail=mail,
         )
-
+    return render_template(
+        "dashboard.html", username=current_user.username, meros=meros, events=events
+    )
     flash("Вы не вошли в систему", "danger")
     return redirect(url_for("login"))
 
