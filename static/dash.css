@@ -120,3 +120,15 @@ body {
     font-size: 20px;
     cursor: pointer;
 }
+
+/* Измененные стили для текста внутри белой кнопки */
+.white-button {
+    background-color: rgb(116, 255, 88);
+    border: none;
+}
+
+.white-button, .white-button:hover, .white-button:active, .white-button:focus {
+    color: black;
+    text-decoration: underline; /* добавлено подчеркивание для выделения */
+    cursor: pointer;
+}

@@ -66,7 +66,7 @@
                         name="mero_text"
                         value="День рождения Пушкина"
                       />
-                      <button class="response-btn" type="submit">
+                      <button class="response-btn white-button" type="submit">
                         Откликнуться
                       </button>
                     </form>
@@ -89,7 +89,12 @@
                     <p id="time">10:00-15:00</p>
                     <p id="hours">3 часа</p>
                     <form method="POST" action="{{ url_for('apply') }}">
-                      <button class="response-btn" type="submit">
+                      <input
+                        type="hidden"
+                        name="mero_text"
+                        value="День рождения Лермонтова"
+                      />
+                      <button class="response-btn white-button" type="submit">
                         Откликнуться
                       </button>
                     </form>
@@ -113,7 +118,12 @@
                     <p id="time">10:00-15:00</p>
                     <p id="hours">2 часа</p>
                     <form method="POST" action="{{ url_for('apply') }}">
-                      <button class="response-btn" type="submit">
+                      <input
+                        type="hidden"
+                        name="mero_text"
+                        value="День рождения Гордина"
+                      />
+                      <button class="response-btn white-button" type="submit">
                         Откликнуться
                       </button>
                     </form>
@@ -136,7 +146,12 @@
                     <p id="hours">2 часа</p>
                     <!-- Пример формы в apply.html -->
                     <form method="POST" action="{{ url_for('apply') }}">
-                      <button class="response-btn" type="submit">
+                      <input
+                        type="hidden"
+                        name="mero_text"
+                        value="День рождения ИУ"
+                      />
+                      <button class="response-btn white-button" type="submit">
                         Откликнуться
                       </button>
                     </form>
@@ -147,29 +162,6 @@
           </table>
         </td>
       </tr>
-      <div>
-        <h2>Мероприятия</h2>
-        {% for mero in meros %}
-        <div>
-          <p>{{ mero.mero }}</p>
-          <p>{{ mero.name }} {{ mero.lastname }}</p>
-          <p>{{ mero.group }}</p>
-          <p>{{ mero.mail }}</p>
-          <hr />
-        </div>
-        {% endfor %}
-      </div>
-      <div>
-        <h2>Созданные мероприятия</h2>
-        {% for event in events %}
-        <div>
-          <p>{{ event.name }}</p>
-          <p>{{ event.date }}</p>
-          <p>{{ event.description }}</p>
-          <hr />
-        </div>
-        {% endfor %}
-      </div>
     </table>
 
     <div id="welcome-popup" class="popup">
@@ -183,6 +175,25 @@
         <a href="{{ url_for('logout') }}">Выйти</a>
       </p>
     </div>
+    <h2>Мероприятия активные</h2>
+    {% for event in events %}
+    <div>
+      <label>
+        <strong>{{ event.name }}</strong>
+        <p>{{ event.date }}</p>
+        <p>{{ event.description }}</p>
+
+        {% if not is_admin %}
+        <form method="POST" action="{{ url_for('apply') }}">
+          <input type="hidden" name="mero_text" value="{{ event.name }}" />
+          <button class="response-btn white-button" type="submit">
+            Откликнуться
+          </button>
+        </form>
+        {% endif %}
+      </label>
+    </div>
+    {% endfor %}
 
     <script src="static/dash.js" defer></script>
   </body>

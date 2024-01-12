@@ -57,7 +57,6 @@ class Event(db.Model):
     meros = db.relationship("Mero", back_populates="event")
 
 
-# Примените миграции после добавления новой модели
 migrate.init_app(app, db)
 
 
@@ -145,17 +144,17 @@ def create_event():
         # Получаем созданное мероприятие с базы данных
         created_event = Event.query.filter_by(name=event_name).first()
 
-        # Создаем пост для этого мероприятия
-        new_mero = Mero(
-            mero=event_name,
-            name=current_user.name,
-            lastname=current_user.lastname,
-            group=current_user.group,
-            mail=current_user.mail,
-            event_id=created_event.id,
-        )
-        db.session.add(new_mero)
-        db.session.commit()
+        # # Создаем пост для этого мероприятия
+        # new_mero = Mero(
+        #     mero=event_name,
+        #     name=current_user.username,
+        #     lastname=current_user.lastname,
+        #     group=current_user.group,
+        #     mail=current_user.mail,
+        #     event_id=created_event.id,
+        # )
+        # db.session.add(new_mero)
+        # db.session.commit()
 
         flash("Мероприятие успешно опубликовано", "success")
 
@@ -168,7 +167,8 @@ def lk():
     user1 = current_user
     user_data = UserData.query.get(current_user.id)
     if user1.roles == "admin":
-        return render_template("adminlk.html")
+        records = Mero.query.all()
+        return render_template("adminlk.html", records=records)
     else:
         if user_data:
             name = user_data.name
@@ -192,7 +192,6 @@ def lk():
 @login_required
 def apply():
     if request.method == "POST":
-        # Получаем значение названия мероприятия из формы
         mero_text = request.form.get("mero_text")
 
         if current_user.roles == "baseuser":
@@ -204,7 +203,7 @@ def apply():
                 group = user_data.group
                 mail = user_data.mail
 
-                # Записываем данные в таблицу Mero
+            
                 new_mero = Mero(
                     mero=mero_text, name=name, lastname=lastname, group=group, mail=mail
                 )
@@ -235,7 +234,6 @@ def login():
             flash(error_message, "danger")
             return render_template("err.html", error_message=error_message)
 
-    # Проверка наличия сообщения в URL и передача его в шаблон
     message = request.args.get("message")
     return render_template("login.html", message=message)
 
@@ -248,7 +246,7 @@ def dashboard():
 
     if current_user.is_authenticated:
         username = current_user.username
-        return render_template("dashboard.html", username=username)
+        return render_template("dashboard.html", username=username, events=events)
     else:
         name = user_data.name
         lastname = user_data.lastname
